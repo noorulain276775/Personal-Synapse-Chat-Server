@@ -178,7 +178,7 @@ class MatrixAuthClient {
             this.log('Attempting to login...', 'info');
             
             // Create Matrix client
-            this.client = matrixcs.createClient({
+            this.client = matrix.createClient({
                 baseUrl: "http://localhost:8008",
                 useAuthorizationHeader: true
             });
@@ -235,7 +235,7 @@ class MatrixAuthClient {
             this.log('Attempting to register...', 'info');
             
             // Create Matrix client
-            this.client = matrixcs.createClient({
+            this.client = matrix.createClient({
                 baseUrl: "http://localhost:8008"
             });
             
@@ -298,13 +298,23 @@ class MatrixAuthClient {
         try {
             this.log(`Initiating SSO login with ${provider}...`, 'info');
             
-            // In a real implementation, this would redirect to the OIDC provider
-            // For demo purposes, we'll show a message
-            this.showStatus(`${provider} SSO is not configured yet. Please use username/password login.`, 'info');
+            // Map provider names to OIDC provider IDs
+            const providerMap = {
+                'google': 'oidc-google',
+                'github': 'oidc-github'
+            };
             
-            // Example of what the real implementation would look like:
-            // const ssoUrl = `http://localhost:8008/_matrix/client/r0/login/sso/redirect/${provider}`;
-            // window.location.href = ssoUrl;
+            const oidcProvider = providerMap[provider.toLowerCase()];
+            if (!oidcProvider) {
+                throw new Error(`Unknown SSO provider: ${provider}`);
+            }
+            
+            // Redirect to the OIDC provider
+            const redirectUrl = encodeURIComponent(window.location.origin + '/frontend/auth.html');
+            const ssoUrl = `http://localhost:8008/_matrix/client/r0/login/sso/redirect/${oidcProvider}?redirectUrl=${redirectUrl}`;
+            
+            this.log(`Redirecting to ${provider} OAuth...`, 'info');
+            window.location.href = ssoUrl;
             
         } catch (error) {
             this.log(`SSO login failed: ${error.message}`, 'error');

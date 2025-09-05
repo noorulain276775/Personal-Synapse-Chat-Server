@@ -58,7 +58,7 @@ class MatrixChatClient {
             this.log('Attempting to login...', 'info');
             
             // Create Matrix client
-            this.client = matrixcs.createClient({
+            this.client = matrix.createClient({
                 baseUrl: "http://localhost:8008",
                 useAuthorizationHeader: true
             });
