@@ -1,0 +1,58 @@
+version: '3.8'
+
+services:
+  # PostgreSQL database for Synapse
+  postgres:
+    image: postgres:15
+    container_name: synapse-postgres
+    environment:
+      POSTGRES_DB: synapse
+      POSTGRES_USER: synapse
+      POSTGRES_PASSWORD: synapse_password
+      POSTGRES_INITDB_ARGS: "--encoding=UTF-8 --lc-collate=C --lc-ctype=C"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - synapse-network
+    restart: unless-stopped
+
+  # Redis for caching and rate limiting
+  redis:
+    image: redis:7-alpine
+    container_name: synapse-redis
+    command: redis-server --appendonly yes --requirepass redis_password
+    volumes:
+      - redis_data:/data
+    networks:
+      - synapse-network
+    restart: unless-stopped
+
+  # Synapse Matrix server
+  synapse:
+    image: matrixdotorg/synapse:latest
+    container_name: synapse-server
+    depends_on:
+      - postgres
+      - redis
+    environment:
+      - SYNAPSE_SERVER_NAME=localhost
+      - SYNAPSE_REPORT_STATS=no
+    volumes:
+      - ./data:/data
+      - ./homeserver.yaml:/data/homeserver.yaml
+      - ./modules:/data/modules
+    ports:
+      - "8008:8008"  # HTTP client API
+      - "8448:8448"  # Federation
+    networks:
+      - synapse-network
+    restart: unless-stopped
+    command: run
+
+volumes:
+  postgres_data:
+  redis_data:
+
+networks:
+  synapse-network:
+    driver: bridge

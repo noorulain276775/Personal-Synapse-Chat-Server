@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matrix Authentication</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="auth.css">
+</head>
+<body>
+    <div class="auth-container">
+        <div class="auth-header">
+            <h1>Matrix Authentication</h1>
+            <p>Choose your authentication method</p>
+        </div>
+        
+        <div class="auth-tabs">
+            <button class="tab-button active" data-tab="login">Login</button>
+            <button class="tab-button" data-tab="register">Register</button>
+            <button class="tab-button" data-tab="sso">SSO Login</button>
+        </div>
+        
+        <!-- Login Tab -->
+        <div class="tab-content active" id="login">
+            <form id="loginForm" class="auth-form">
+                <h2>Login to Matrix</h2>
+                
+                <div class="form-group">
+                    <label for="loginUsername">Username:</label>
+                    <input type="text" id="loginUsername" placeholder="username" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="loginPassword">Password:</label>
+                    <input type="password" id="loginPassword" placeholder="password" required>
+                </div>
+                
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox" id="rememberMe"> Remember me
+                    </label>
+                </div>
+                
+                <button type="submit" class="auth-button">Login</button>
+                
+                <div class="auth-links">
+                    <a href="#" id="forgotPassword">Forgot Password?</a>
+                </div>
+            </form>
+        </div>
+        
+        <!-- Register Tab -->
+        <div class="tab-content" id="register">
+            <form id="registerForm" class="auth-form">
+                <h2>Create Account</h2>
+                
+                <div class="form-group">
+                    <label for="regUsername">Username:</label>
+                    <input type="text" id="regUsername" placeholder="username" required>
+                    <div class="field-hint">3-20 characters, letters, numbers, and underscores only</div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="regEmail">Email:</label>
+                    <input type="email" id="regEmail" placeholder="email@example.com" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="regDisplayName">Display Name (optional):</label>
+                    <input type="text" id="regDisplayName" placeholder="Your Name">
+                </div>
+                
+                <div class="form-group">
+                    <label for="regPassword">Password:</label>
+                    <input type="password" id="regPassword" placeholder="password" required>
+                    <div class="password-strength" id="passwordStrength"></div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="regPasswordConfirm">Confirm Password:</label>
+                    <input type="password" id="regPasswordConfirm" placeholder="confirm password" required>
+                </div>
+                
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox" id="agreeTerms" required> I agree to the Terms of Service
+                    </label>
+                </div>
+                
+                <button type="submit" class="auth-button">Create Account</button>
+            </form>
+        </div>
+        
+        <!-- SSO Tab -->
+        <div class="tab-content" id="sso">
+            <div class="auth-form">
+                <h2>Single Sign-On</h2>
+                <p>Login with your existing account</p>
+                
+                <div class="sso-providers">
+                    <button class="sso-button google" id="googleLogin">
+                        <span class="sso-icon">G</span>
+                        Login with Google
+                    </button>
+                    
+                    <button class="sso-button github" id="githubLogin">
+                        <span class="sso-icon">🐙</span>
+                        Login with GitHub
+                    </button>
+                    
+                    <button class="sso-button microsoft" id="microsoftLogin">
+                        <span class="sso-icon">M</span>
+                        Login with Microsoft
+                    </button>
+                </div>
+                
+                <div class="sso-info">
+                    <p>SSO providers are configured in the server settings.</p>
+                    <p>Contact your administrator if you need access.</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Password Reset Modal -->
+        <div class="modal" id="passwordResetModal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h2>Reset Password</h2>
+                <form id="passwordResetForm">
+                    <div class="form-group">
+                        <label for="resetEmail">Email:</label>
+                        <input type="email" id="resetEmail" placeholder="email@example.com" required>
+                    </div>
+                    <button type="submit" class="auth-button">Send Reset Link</button>
+                </form>
+            </div>
+        </div>
+        
+        <!-- Status Messages -->
+        <div class="status-message" id="statusMessage"></div>
+        
+        <!-- Debug Logs -->
+        <div class="debug-logs" id="debugLogs">
+            <h3>Debug Logs</h3>
+            <div id="logContent"></div>
+        </div>
+    </div>
+    
+    <script src="https://unpkg.com/matrix-js-sdk@latest/lib/browser-matrix.js"></script>
+    <script src="auth.js"></script>
+</body>
+</html>

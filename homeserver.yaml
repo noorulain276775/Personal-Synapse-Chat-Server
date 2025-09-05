@@ -1,0 +1,236 @@
+# Synapse Configuration File
+# This is a sample configuration file for Synapse.
+# It is not intended to be used as-is, but rather as a template
+# for configuring your own homeserver.
+
+# Server configuration
+server_name: "localhost"
+pid_file: /data/homeserver.pid
+listeners:
+  - port: 8008
+    tls: false
+    type: http
+    x_forwarded: true
+    bind_addresses: ['::1', '127.0.0.1']
+    
+    resources:
+      - names: [client, federation]
+        compress: false
+
+  - port: 8448
+    tls: true
+    type: http
+    x_forwarded: true
+    bind_addresses: ['::1', '127.0.0.1']
+    
+    resources:
+      - names: [federation]
+
+# Database configuration
+database:
+  name: psycopg2
+  args:
+    user: synapse
+    password: synapse_password
+    database: synapse
+    host: postgres
+    port: 5432
+    cp_min: 5
+    cp_max: 10
+
+# Redis configuration for caching and rate limiting
+redis:
+  enabled: true
+  host: redis
+  port: 6379
+  password: redis_password
+  dbid: 0
+
+# Logging configuration
+log_config: "/data/localhost.log.config"
+
+# Registration configuration
+enable_registration: true
+enable_registration_without_verification: false
+
+# Authentication configuration
+password_config:
+  enabled: true
+  localdb_enabled: true
+  policy:
+    minimum_length: 8
+    require_digit: true
+    require_lowercase: true
+    require_uppercase: true
+    require_symbol: true
+    require_non_common: true
+    min_entropy: 0.5
+
+# OIDC/SSO Configuration
+oidc_providers:
+  - idp_id: "google"
+    idp_name: "Google"
+    idp_icon: "mxc://example.com/icon"
+    issuer: "https://accounts.google.com"
+    client_id: "your-google-client-id"
+    client_secret: "your-google-client-secret"
+    scopes: ["openid", "profile", "email"]
+    authorization_endpoint: "https://accounts.google.com/o/oauth2/v2/auth"
+    token_endpoint: "https://oauth2.googleapis.com/token"
+    userinfo_endpoint: "https://www.googleapis.com/oauth2/v1/userinfo"
+    jwks_uri: "https://www.googleapis.com/oauth2/v3/certs"
+    skip_verification: false
+
+  - idp_id: "github"
+    idp_name: "GitHub"
+    idp_icon: "mxc://example.com/github-icon"
+    issuer: "https://github.com"
+    client_id: "your-github-client-id"
+    client_secret: "your-github-client-secret"
+    scopes: ["user:email"]
+    authorization_endpoint: "https://github.com/login/oauth/authorize"
+    token_endpoint: "https://github.com/login/oauth/access_token"
+    userinfo_endpoint: "https://api.github.com/user"
+    skip_verification: false
+
+# JWT Configuration
+jwt_config:
+  enabled: true
+  secret: "your-jwt-secret-key-change-this-in-production"
+  algorithm: "HS256"
+  issuer: "localhost"
+  audience: "matrix-synapse"
+
+# Session configuration
+session_lifetime: 24h
+session_timeout: 30m
+
+# Security settings
+max_requests_per_minute: 100
+max_requests_per_hour: 1000
+
+# Media repository configuration
+media_store_path: /data/media_store
+
+# Key configuration
+signing_key_path: "/data/localhost.signing.key"
+old_signing_keys: {}
+
+# Trusted key servers
+trusted_key_servers:
+  - server_name: "matrix.org"
+
+# Federation configuration
+federation_domain_whitelist: []
+
+# Rate limiting
+rc_message:
+  per_second: 0.2
+  burst_count: 10
+
+rc_registration:
+  per_second: 0.17
+  burst_count: 3
+
+rc_login:
+  address:
+    per_second: 0.17
+    burst_count: 3
+  account:
+    per_second: 0.17
+    burst_count: 3
+  failed_attempts:
+    per_second: 0.17
+    burst_count: 3
+
+rc_admin_redaction:
+  per_second: 1
+  burst_count: 50
+
+rc_joins:
+  local:
+    per_second: 0.1
+    burst_count: 10
+  remote:
+    per_second: 0.01
+    burst_count: 10
+
+rc_3pid_validation:
+  per_second: 0.1
+  burst_count: 5
+
+rc_invites:
+  per_room:
+    per_second: 0.3
+    burst_count: 10
+  per_user:
+    per_second: 0.3
+    burst_count: 5
+
+# Modules configuration
+modules:
+  - module: modules.auto_moderation
+    config:
+      banned_words: ["spam", "scam", "hate"]
+      action: "delete"
+      
+  - module: modules.keyword_alerts
+    config:
+      keywords: ["urgent", "help", "emergency"]
+      admin_user: "@admin:localhost"
+      
+  - module: modules.auth_manager
+    config:
+      password_policy:
+        minimum_length: 8
+        require_digit: true
+        require_lowercase: true
+        require_uppercase: true
+        require_symbol: true
+        require_non_common: true
+        min_entropy: 0.5
+      jwt_secret: "your-jwt-secret-key-change-this-in-production"
+      session_timeout: 1800
+      max_login_attempts: 5
+      lockout_duration: 900
+      
+  - module: modules.oidc_auth
+    config:
+      redirect_uri: "http://localhost:8008/_matrix/client/r0/login/sso/redirect"
+      providers:
+        google:
+          name: "Google"
+          icon: "mxc://example.com/google-icon"
+          client_id: "your-google-client-id"
+          client_secret: "your-google-client-secret"
+          authorization_endpoint: "https://accounts.google.com/o/oauth2/v2/auth"
+          token_endpoint: "https://oauth2.googleapis.com/token"
+          userinfo_endpoint: "https://www.googleapis.com/oauth2/v1/userinfo"
+          scopes: ["openid", "profile", "email"]
+        github:
+          name: "GitHub"
+          icon: "mxc://example.com/github-icon"
+          client_id: "your-github-client-id"
+          client_secret: "your-github-client-secret"
+          authorization_endpoint: "https://github.com/login/oauth/authorize"
+          token_endpoint: "https://github.com/login/oauth/access_token"
+          userinfo_endpoint: "https://api.github.com/user"
+          scopes: ["user:email"]
+          
+  - module: modules.user_manager
+    config:
+      registration_enabled: true
+      require_email_verification: true
+      auto_approve_users: false
+      max_users: 1000
+      user_quota: 100
+
+# Security settings
+bcrypt_rounds: 12
+
+# Content security policy
+content_security_policy: "default-src 'self'; script-src 'self' 'unsafe-inline'; object-src 'none'; img-src 'self' data: https:; media-src 'self'; style-src 'self' 'unsafe-inline'; font-src 'self'; frame-ancestors 'none';"
+
+# Additional settings
+use_presence: true
+use_insecure_ssl_client_just_for_testing_do_not_use: true

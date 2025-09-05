@@ -1,0 +1,19 @@
+# Python dependencies for Matrix Synapse Server project
+# Install with: pip install -r requirements.txt
+
+# Core dependencies
+requests>=2.28.0
+redis>=4.5.0
+psycopg2-binary>=2.9.0
+
+# Matrix SDK (for testing and development)
+matrix-nio>=0.20.0
+
+# Development and testing
+pytest>=7.0.0
+pytest-asyncio>=0.21.0
+pytest-cov>=4.0.0
+
+# Optional: For advanced features
+aiohttp>=3.8.0
+asyncio-mqtt>=0.13.0

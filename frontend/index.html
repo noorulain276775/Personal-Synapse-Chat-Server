@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matrix Chat Client</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Matrix Chat Client</h1>
+            <div class="connection-status" id="connectionStatus">Disconnected</div>
+        </header>
+        
+        <div class="login-section" id="loginSection">
+            <h2>Login to Matrix</h2>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" placeholder="username" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" placeholder="password" required>
+                </div>
+                <button type="submit">Login</button>
+            </form>
+        </div>
+        
+        <div class="chat-section" id="chatSection" style="display: none;">
+            <div class="room-selection">
+                <h3>Select Room</h3>
+                <select id="roomSelect">
+                    <option value="">Select a room...</option>
+                </select>
+                <button id="joinRoomBtn" disabled>Join Room</button>
+            </div>
+            
+            <div class="chat-container">
+                <div class="messages" id="messages"></div>
+                <div class="message-input">
+                    <input type="text" id="messageInput" placeholder="Type your message..." disabled>
+                    <button id="sendBtn" disabled>Send</button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="logs" id="logs">
+            <h3>Debug Logs</h3>
+            <div id="logContent"></div>
+        </div>
+    </div>
+    
+    <script src="https://unpkg.com/matrix-js-sdk@latest/lib/browser-matrix.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,400 @@
+/* Authentication Styles */
+
+.auth-container {
+    max-width: 500px;
+    margin: 50px auto;
+    padding: 20px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+}
+
+.auth-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.auth-header h1 {
+    color: #2c3e50;
+    margin-bottom: 10px;
+}
+
+.auth-header p {
+    color: #7f8c8d;
+    font-size: 16px;
+}
+
+/* Tab Styles */
+.auth-tabs {
+    display: flex;
+    margin-bottom: 30px;
+    border-bottom: 2px solid #ecf0f1;
+}
+
+.tab-button {
+    flex: 1;
+    padding: 15px 20px;
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 500;
+    color: #7f8c8d;
+    border-bottom: 3px solid transparent;
+    transition: all 0.3s;
+}
+
+.tab-button:hover {
+    color: #3498db;
+    background: #f8f9fa;
+}
+
+.tab-button.active {
+    color: #3498db;
+    border-bottom-color: #3498db;
+}
+
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+/* Form Styles */
+.auth-form {
+    padding: 20px 0;
+}
+
+.auth-form h2 {
+    color: #2c3e50;
+    margin-bottom: 25px;
+    text-align: center;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #2c3e50;
+}
+
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group input[type="password"] {
+    width: 100%;
+    padding: 12px 16px;
+    border: 2px solid #e1e8ed;
+    border-radius: 8px;
+    font-size: 16px;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: #3498db;
+    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+}
+
+.field-hint {
+    font-size: 12px;
+    color: #7f8c8d;
+    margin-top: 5px;
+}
+
+.password-strength {
+    margin-top: 8px;
+    height: 4px;
+    background: #ecf0f1;
+    border-radius: 2px;
+    overflow: hidden;
+}
+
+.password-strength-bar {
+    height: 100%;
+    transition: width 0.3s, background-color 0.3s;
+    width: 0%;
+}
+
+.password-strength.weak .password-strength-bar {
+    background: #e74c3c;
+    width: 25%;
+}
+
+.password-strength.fair .password-strength-bar {
+    background: #f39c12;
+    width: 50%;
+}
+
+.password-strength.good .password-strength-bar {
+    background: #f1c40f;
+    width: 75%;
+}
+
+.password-strength.strong .password-strength-bar {
+    background: #27ae60;
+    width: 100%;
+}
+
+.form-group input[type="checkbox"] {
+    margin-right: 8px;
+}
+
+.auth-button {
+    width: 100%;
+    padding: 14px 20px;
+    background: #3498db;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.auth-button:hover {
+    background: #2980b9;
+}
+
+.auth-button:disabled {
+    background: #bdc3c7;
+    cursor: not-allowed;
+}
+
+.auth-links {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.auth-links a {
+    color: #3498db;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.auth-links a:hover {
+    text-decoration: underline;
+}
+
+/* SSO Styles */
+.sso-providers {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin: 30px 0;
+}
+
+.sso-button {
+    display: flex;
+    align-items: center;
+    padding: 15px 20px;
+    border: 2px solid #e1e8ed;
+    border-radius: 8px;
+    background: white;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 500;
+    transition: all 0.3s;
+    text-decoration: none;
+    color: #2c3e50;
+}
+
+.sso-button:hover {
+    border-color: #3498db;
+    background: #f8f9fa;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.sso-icon {
+    width: 24px;
+    height: 24px;
+    margin-right: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.sso-button.google {
+    border-color: #db4437;
+    color: #db4437;
+}
+
+.sso-button.google:hover {
+    background: #db4437;
+    color: white;
+}
+
+.sso-button.github {
+    border-color: #333;
+    color: #333;
+}
+
+.sso-button.github:hover {
+    background: #333;
+    color: white;
+}
+
+.sso-button.microsoft {
+    border-color: #0078d4;
+    color: #0078d4;
+}
+
+.sso-button.microsoft:hover {
+    background: #0078d4;
+    color: white;
+}
+
+.sso-info {
+    margin-top: 30px;
+    padding: 20px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.sso-info p {
+    margin: 5px 0;
+    color: #7f8c8d;
+    font-size: 14px;
+}
+
+/* Modal Styles */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+}
+
+.modal-content {
+    background-color: white;
+    margin: 15% auto;
+    padding: 30px;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 400px;
+    position: relative;
+}
+
+.close {
+    position: absolute;
+    right: 20px;
+    top: 15px;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    color: #aaa;
+}
+
+.close:hover {
+    color: #000;
+}
+
+/* Status Messages */
+.status-message {
+    margin: 20px 0;
+    padding: 15px;
+    border-radius: 8px;
+    display: none;
+}
+
+.status-message.success {
+    background: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.status-message.error {
+    background: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+.status-message.info {
+    background: #d1ecf1;
+    color: #0c5460;
+    border: 1px solid #bee5eb;
+}
+
+/* Debug Logs */
+.debug-logs {
+    margin-top: 30px;
+    padding: 20px;
+    background: #2c3e50;
+    color: #ecf0f1;
+    border-radius: 8px;
+    font-family: 'Courier New', monospace;
+}
+
+.debug-logs h3 {
+    margin-bottom: 15px;
+    color: #3498db;
+}
+
+#logContent {
+    max-height: 200px;
+    overflow-y: auto;
+    font-size: 12px;
+    line-height: 1.4;
+}
+
+.log-entry {
+    margin-bottom: 5px;
+    padding: 2px 0;
+}
+
+.log-entry.info {
+    color: #3498db;
+}
+
+.log-entry.error {
+    color: #e74c3c;
+}
+
+.log-entry.success {
+    color: #27ae60;
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+    .auth-container {
+        margin: 20px;
+        padding: 15px;
+    }
+    
+    .auth-tabs {
+        flex-direction: column;
+    }
+    
+    .tab-button {
+        border-bottom: 1px solid #ecf0f1;
+        border-right: 3px solid transparent;
+    }
+    
+    .tab-button.active {
+        border-bottom-color: #ecf0f1;
+        border-right-color: #3498db;
+    }
+    
+    .sso-providers {
+        gap: 10px;
+    }
+    
+    .sso-button {
+        padding: 12px 16px;
+        font-size: 14px;
+    }
+}
